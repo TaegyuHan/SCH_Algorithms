@@ -37,7 +37,7 @@ def result_df(solutions) -> pandas.core.frame.DataFrame:
         for i, solution in enumerate(solutions):
             with open(file_path, "r") as test:
                 time, result = solution(test=test)
-                if i == 0: i = "ansmwer"
+                if i == 0: i = "answer"
                 solution_col.append(f"{i}")
                 time_col.append(time)
                 result_col.append(result)
