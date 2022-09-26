@@ -12,6 +12,20 @@ def select_sort(array: list[int]) -> None:
     return array
 
 
+def selection_sort(array, size):
+    for ind in range(size):
+        min_index = ind
+
+        for j in range(ind + 1, size):
+            # select the minimum element in every iteration
+            if array[j] < array[min_index]:
+                min_index = j
+        # swapping the elements to sort the array
+        (array[ind], array[min_index]) = (array[min_index], array[ind])
+
+    return array
+
+
 def insert_sort(array: list[int]) -> None:
     """ 삽입 정렬 """
     for idx1 in range(1, len(array)):
@@ -26,6 +40,11 @@ def insert_sort(array: list[int]) -> None:
             array.insert(idx1, tmp)
     return array
 
+def insertion_sort(arr):
+    for end in range(1, len(arr)):
+        for i in range(end, 0, -1):
+            if arr[i - 1] > arr[i]:
+                arr[i - 1], arr[i] = arr[i], arr[i - 1]
 
 def quick_sort(array: list[int]) -> None:
     """ 퀵 정렬 """
