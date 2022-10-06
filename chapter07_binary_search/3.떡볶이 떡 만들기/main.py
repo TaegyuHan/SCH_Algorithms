@@ -33,9 +33,9 @@ class P:
             print(self._cut_tree(mid))
             break
 
-
     def answer(self):
         """ 정답  """
+        
 
 
 def main():
