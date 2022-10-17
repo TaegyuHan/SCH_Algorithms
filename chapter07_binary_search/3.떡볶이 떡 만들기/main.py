@@ -3,46 +3,26 @@
 """
 from sys import stdin as input
 
+input = open('./test/original.txt', encoding="utf-8")
+n, m = map(int, input.readline().split())
+rice_cakes = list(map(int, input.readline().split()))
+rice_cakes.sort()
+start, end = 0, rice_cakes[-1]
+answer = 0
 
-class P:
+while start < end:
+    total = 0
+    mid = (start + end) // 2
 
-    def __init__(self):
-        self._input_data()
-        self._binary_search()
+    # 자른 양 구하기
+    for rice_cake in rice_cakes:
+       if rice_cake > mid:
+           total += rice_cake - mid
 
-    def _input_data(self):
-        """ 데이터 받기 """
-        self._input = open('./test/original.txt', encoding="utf-8")
-        self._tree_count, self._want_size = map(int, self._input.readline().split())
-        self._trees = list(map(int, self._input.readline().split()))
-        self._trees.sort()
+    # 2분 탐색
+    if total < m:
+        end = mid - 1
+    else:
+        start = mid + 1
 
-    def _cut_tree(self, size: int):
-        """ 나무 자른 결과 """
-        cut = 0
-        for tree in self._trees:
-            if 0 < (cut_tmp := tree - size):
-                cut += cut_tmp
-        return cut
-
-    def _binary_search(self):
-        start, end = 0, self._trees[-1]
-
-        while start < end:
-            mid = (start + end) // 2
-            print(self._cut_tree(mid))
-            break
-
-    def answer(self):
-        """ 정답  """
-        
-
-
-def main():
-    """ 함수 실행 """
-    p = P()
-    p.answer()
-
-
-if __name__ == '__main__':
-    main()
+print(end)
