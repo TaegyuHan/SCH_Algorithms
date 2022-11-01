@@ -15,8 +15,9 @@
     a와 b는 N 이하의 양의 정수이다.
     '같은 팀 여부 확인'연산에 대하여 한 줄에 하나씩 YES 혹은 NO로 결과를 출력한다.
 """
-from sys import stdin as input
+import sys
 
+sys.setrecursionlimit(10 ** 6)
 UNION = 0
 FIND = 1
 
@@ -25,31 +26,32 @@ class UnionFind:
     """ 유니온 파인드 """
 
     def __init__(self, node_count: int):
-        self._array = [i for i in range(node_count + 1)]
+        self._parents = [i for i in range(node_count + 1)]
 
     def union(self, node1: int, node2: int):
         """ 합집합 """
-        if self._array[node1] <= self._array[node2]:
-            self._array[node2] = self._array[node1]
-        else:
-            self._array[node1] = self._array[node2]
+        pnode1 = self.find(node1)
+        pnode2 = self.find(node2)
 
-    def _parent(self, node: int):
-        """ 부모 정렬 """
-        if node != self._array[node]:
-            self._array[node] = self._parent(node)
-            return self._array[node]
+        if pnode1 < pnode2:
+            self._parents[node2] = pnode1
+        else:
+            self._parents[node1] = pnode2
+
+    def find(self, node: int):
+        """ 집합 확인 """
+        if self._parents[node] != node:
+            return self.find(self._parents[node])
         return node
 
-    def find(self, node1: int, node2: int):
-        """ 집합 확인 """
-        if self._parent(node1) == self._parent(node2):
+    def find_check(self, node1: int, node2: int):
+        if self.find(node1) == self.find(node2):
             return "YES"
         return "NO"
 
     def array_check(self):
         """ 배열확인하기 """
-        return self._array
+        return self._parents
 
 
 class P:
@@ -69,17 +71,14 @@ class P:
             if check == UNION:
                 cls._union_find.union(node1, node2)
             elif check == FIND:
-                cls._answer_list.append(cls._union_find.find(node1, node2))
+                print(cls._union_find.find_check(node1, node2))  # answer
             else:
                 pass
-            print(check, node1, node2, cls._union_find.array_check())
 
     @classmethod
     def answer(self):
         """ 정답 """
         self._input()
-        for check in self._answer_list:
-            print(check)
 
 
 if __name__ == '__main__':
