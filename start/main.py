@@ -13,7 +13,7 @@ class P:
     def _logic(self):
         """ 풀이 """
 
-    def answer(self, ) -> None:
+    def answer(self) -> None:
         print(self._logic())
 
     def answer_test(self, file_name: str = "1.txt") -> None:
@@ -23,4 +23,4 @@ class P:
 
 if __name__ == '__main__':
     p = P(file_name="./data/input/1.txt")
-    P.answer()
+    p.answer()
