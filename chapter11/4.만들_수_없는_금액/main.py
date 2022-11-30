@@ -10,8 +10,6 @@ import heapq
 
 
 class P:
-    _coin_count: int
-    _coins: list[int]
 
     @classmethod
     def _input_data(cls, file_name):

@@ -13,8 +13,6 @@ from sys import stdin as input
 
 
 class P:
-    _numbers: list[int]
-    _answer: int
 
     @classmethod
     def _input_data(cls, file_name):
@@ -25,11 +23,10 @@ class P:
     @classmethod
     def _logic(cls):
         """ 풀이 """
-        cls._answer = 0
+        answer = 0
         for num in cls._numbers:
-            cls._answer = max(cls._answer + num,
-                              cls._answer * num)
-        return cls._answer
+            answer = max(answer + num, answer * num)
+        return answer
 
     @classmethod
     def answer(cls, file_name: str = "1.txt") -> None:

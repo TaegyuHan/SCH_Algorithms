@@ -16,8 +16,6 @@ ZERO = "0"
 class P:
     _numbers: list[str]
     _answer: int
-    _0_count: int
-    _1_count: int
 
     @classmethod
     def _input_data(cls, file_name):
@@ -28,15 +26,15 @@ class P:
     @classmethod
     def _logic(cls):
         """ 풀이 """
-        cls._0_count, cls._1_count = 0, 0
+        count_0, count_1 = 0, 0
         for idx in range(len(cls._numbers)):
             zero_or_one = cls._numbers[idx]
 
             if idx == 0:  # 첫번째 수 저장
                 if zero_or_one == ZERO:
-                    cls._0_count += 1
+                    count_0 += 1
                 else:
-                    cls._1_count += 1
+                    count_1 += 1
                 continue
 
             # 중간 같은 부붙 PASS
@@ -45,11 +43,11 @@ class P:
 
             # 달라지는 부분 횟수
             if cls._numbers[idx] == ZERO:
-                cls._0_count += 1
+                count_0 += 1
             else:
-                cls._1_count += 1
+                count_1 += 1
 
-        return min(cls._0_count, cls._1_count)
+        return min(count_0, count_1)
 
     @classmethod
     def answer(cls, file_name: str = "1.txt") -> None:
