@@ -32,20 +32,28 @@ class P:
 
     def __init__(self, file_name):
         """ 데이터 받기 """
-        with open(file_name, encoding="utf-8") as input:
-            self._N, self._M = map(int, input.readline().split())
+        # with open(file_name, encoding="utf-8") as input:
+        self._N, self._M = map(int, input.readline().split())
 
-            self._emptys = []
-            self._board = []
-            self._virus = []
-            for row in range(self._N):
-                row_data = list(map(int, input.readline().split()))
-                self._board.append(row_data)
-                for col in range(len(row_data)):
-                    if row_data[col] == EMPTY:
-                        self._emptys.append((row, col))
-                    if row_data[col] == VIRUS:
-                        self._virus.append((row, col))
+        self._emptys = []
+        self._empty_count = -3
+        self._board = []
+        self._virus = []
+        self._start_virus_count = 0
+        for row in range(self._N):
+            row_data = list(map(int, input.readline().split()))
+            self._board.append(row_data)
+            for col in range(len(row_data)):
+
+                if row_data[col] == EMPTY:
+                    self._emptys.append((row, col))
+                    self._empty_count += 1
+
+                if row_data[col] == VIRUS:
+                    self._virus.append((row, col))
+                    self._start_virus_count += 1
+
+        self._virus_count = self._N * self._M
 
     def _show_board(self, board):
         for row in board:
@@ -53,6 +61,7 @@ class P:
 
     def _spread_virus(self, select_wall):
         """ 바이러스 퍼지기 """
+        virus_count = -self._start_virus_count
         visited = [[0] * self._M for _ in range(self._N)]
         board = deepcopy(self._board)
 
@@ -63,12 +72,27 @@ class P:
         while q:
             crow, ccol = q.popleft()
             if visited[crow][ccol]: continue
+            if self._virus_count <= virus_count:
+                return self._virus_count
+            visited[crow][ccol] = 1
+            virus_count += 1
+            board[crow][ccol] = VIRUS
+
+            for trow, tcol in MOVE:
+                nrow, ncol = crow + trow, ccol + tcol
+
+                if not (0 <= nrow < self._N and 0 <= ncol < self._M): continue
+                if visited[nrow][ncol]: continue
+                if board[nrow][ncol] == WALL: continue
+                q.append((nrow, ncol))
+
+        return virus_count
 
     def _logic(self):
         """ 풀이 """
         for select_wall in combinations(self._emptys, 3):
-            self._spread_virus(select_wall)
-            break
+            self._virus_count = min(self._virus_count, self._spread_virus(select_wall))
+        return self._empty_count - self._virus_count
 
     def answer(self, file_name: str = "1.txt") -> None:
         print(self._logic())
@@ -79,5 +103,5 @@ class P:
 
 
 if __name__ == '__main__':
-    p = P(file_name="./data/input/1.txt")
+    p = P(file_name="./data/input/3.txt")
     p.answer()

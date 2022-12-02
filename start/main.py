@@ -2,7 +2,6 @@
 
 """
 from sys import stdin as input
-import heapq
 
 class P:
 

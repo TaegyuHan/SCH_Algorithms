@@ -32,11 +32,42 @@ class P:
     def __init__(self, file_name: str = "1.txt"):
         """ 생성자 """
         with open(file_name, encoding="utf-8") as input:
-            self._gate_count = int(input.readline())
-            self._airplane_count = int(input.readline())
+            # 탑승구의 개수 입력받기
+            self._g = int(input.readline())
+            # 비행기의 개수 입력받기
+            self._p = int(input.readline())
+            self._parent = [0] * (self._g + 1)  # 부모 테이블 초기화
+
+            # 부모 테이블상에서, 부모를 자기 자신으로 초기화
+            for i in range(1, g + 1):
+                self._parent[i] = i
+
+            self._result = 0
+            for _ in range(p):
+                data = self._find_parent(self._parent, int(input.readline()))  # 현재 비행기의 탑승구의 루트 확인
+                if data == 0:  # 현재 루트가 0이라면, 종료
+                    break
+                self._union_parent(self._parent, data, data - 1)  # 그렇지 않다면 바로 왼쪽의 집합과 합치기
+                self._result += 1
+
+    def _find_parent(self, parent, x):
+        # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
+        if parent[x] != x:
+            parent[x] = self._find_parent(parent, parent[x])
+        return parent[x]
+
+    # 두 원소가 속한 집합을 합치기
+    def _union_parent(self,parent, a, b):
+        a = self._find_parent(parent, a)
+        b = self._find_parent(parent, b)
+        if a < b:
+            parent[b] = a
+        else:
+            parent[a] = b
 
     def _logic(self):
         """ 풀이 """
+        return self._result
 
     def answer(self) -> None:
         print(self._logic())

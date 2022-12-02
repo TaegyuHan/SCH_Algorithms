@@ -63,5 +63,5 @@ class P:
 
 
 if __name__ == '__main__':
-    p = P(file_name="./data/input/2.txt")
+    p = P(file_name="data/input/2.txt")
     p.answer()
