@@ -9,8 +9,10 @@ class P:
         """ 데이터 받기 """
         with open(file_name, encoding="utf-8") as input:
             self._test_case = int(input.readline())
-            self._n, self._m = map(int, input.readline().split())
-            self._array = list(map(int, input.readline().split()))
+            for _ in range(self._test_case):
+                self._n, self._m = map(int, input.readline().split())
+                self._array = list(map(int, input.readline().split()))
+                print(self._logic())
 
     def _logic(self):
         """ 풀이 """
@@ -45,7 +47,7 @@ class P:
         return result
 
     def answer(self, file_name: str = "1.txt") -> None:
-        print(self._logic())
+        """ """
 
     def answer_test(self, file_name: str = "1.txt") -> None:
         """ 테스트 정답 출력 """
@@ -53,4 +55,3 @@ class P:
 
 if __name__ == '__main__':
     p = P(file_name="./data/input/1.txt")
-    p.answer()

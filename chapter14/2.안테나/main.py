@@ -6,9 +6,9 @@ class P:
 
     def __init__(self, file_name: str = "1.txt"):
         """ 생성자 """
-        # with open(file_name, encoding="utf-8") as input:
-        self._N = int(input.readline())
-        self._home_positions = list(map(int, input.readline().split()))
+        with open(file_name, encoding="utf-8") as input:
+            self._N = int(input.readline())
+            self._home_positions = list(map(int, input.readline().split()))
 
     def _distance(self, idx: int):
         tmp = 0
@@ -47,5 +47,5 @@ class P:
 
 
 if __name__ == '__main__':
-    p = P(file_name="./data/input/2.txt")
+    p = P(file_name="./data/input/1.txt")
     p.answer()

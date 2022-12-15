@@ -21,10 +21,10 @@ class P:
 
     def __init__(self, file_name: str = "1.txt"):
         """ 생성자 """
-        # with open(file_name, encoding="utf-8") as input:
-        self._home_count, self._share_count = map(int, input.readline().split())
-        self._homes = [int(input.readline()) for _ in range(self._home_count)]
-        self._homes.sort()
+        with open(file_name, encoding="utf-8") as input:
+            self._home_count, self._share_count = map(int, input.readline().split())
+            self._homes = [int(input.readline()) for _ in range(self._home_count)]
+            self._homes.sort()
 
     def _setup_count(self, length: int):
         """ 공유기 설치 수 """
@@ -63,5 +63,5 @@ class P:
 
 
 if __name__ == '__main__':
-    p = P(file_name="data/input/2.txt")
+    p = P(file_name="data/input/1.txt")
     p.answer()

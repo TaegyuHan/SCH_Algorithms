@@ -57,6 +57,7 @@ class P:
 
     def _logic(self):
         """ 풀이 """
+        # tmp 중간 경유지
         for tmp in range(self._city_count):
             for start in range(self._city_count):
                 for end in range(self._city_count):

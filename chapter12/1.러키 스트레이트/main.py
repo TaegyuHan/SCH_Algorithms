@@ -41,7 +41,7 @@ class P:
         """ 풀이 """
         div_idx = (len(cls._number)//2)
         left_point = sum(map(int, cls._number[:div_idx]))
-        right_point = sum(map(int, cls._number[:div_idx]))
+        right_point = sum(map(int, cls._number[div_idx:]))
         if left_point == right_point:
             return "LUCKY"
         return "READY"
@@ -59,4 +59,4 @@ class P:
 
 
 if __name__ == '__main__':
-    P.answer(file_name="./data/input/1.txt")
+    P.answer(file_name="./data/input/2.txt")
